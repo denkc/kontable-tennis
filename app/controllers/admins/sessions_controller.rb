@@ -2,7 +2,7 @@ class Admins::SessionsController < Devise::OmniauthCallbacksController
 
   def callback
     email = request.env['omniauth.auth'].info.to_hash['email'].downcase
-    if email =~ /@(the)?edgecase.com\Z/
+    if email =~ /@kontagent.com\Z/
       @admin = Admin.find_or_create_by_email(email)
       @admin.ensure_authentication_token!
       sign_in @admin

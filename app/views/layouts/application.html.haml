@@ -1,7 +1,7 @@
 !!! 5
 %html
   %head
-    %title Paddle Battle - #{yield :title}
+    %title Kontable Tennis - #{yield :title}
     = stylesheet_link_tag    'application'
     = javascript_include_tag 'application'
     = favicon_link_tag
@@ -11,13 +11,13 @@
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
-          = link_to 'Paddle Battle', root_path, class: 'brand'
+          = link_to 'Kontable Tennis', root_path, class: 'brand'
           %ul.nav
             %li= link_to_with_current "Rankings", root_path
             %li= link_to_with_current "Matches", matches_path
             %li= link_to_with_current "Distribution", distribution_path
           %ul.nav.pull-right
-            %li= link_to "Source Code", "https://github.com/edgecase/paddle-battle"
+            %li= link_to "Source Code", "https://github.com/denkc/kontable-tennis"
             %li= link_to "Elo Rating System", "http://en.wikipedia.org/wiki/Elo_rating_system"
             - if admin_signed_in?
               %li= link_to "Sign Out", destroy_admin_session_path

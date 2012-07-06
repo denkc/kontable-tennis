@@ -31,4 +31,4 @@
           = format_game_scores m.game_scores
         - if admin_signed_in?
           %td.action
-            = link_to "delete", match_path(m), method: :delete
+            = link_to "delete", match_path(m), :confirm => "Are you sure?", :method => :delete

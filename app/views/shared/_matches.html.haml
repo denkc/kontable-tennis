@@ -12,7 +12,7 @@
     - @matches.each do |m|
       %tr.match-details{class: cycle("even", "odd")}
         %td.date
-          = m.occured_at.strftime("%Y-%m-%d")
+          = m.occured_at.strftime("%Y-%m-%d %H:%M %Z")
         %td.name
           = link_to(m.winner.display_name, player_path(m.winner_id))
           - if @vs.nil? && @player && @player.id != m.winner_id

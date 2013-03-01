@@ -18,7 +18,7 @@
             %th Elo Rating
         - i = 1
         - @ratings.each do |player_id, elo_player|
-          - next if @players_by_id[player_id].most_recent_match.occured_at < 30.days.ago or elo_player.games.count < 10
+          - next if @players_by_id[player_id].most_recent_match.occured_at < 30.days.ago #or elo_player.games.count < 10
           %tr.player
             %td.rank= "#{i}."
             %td.name= link_to(@players_by_id[player_id].display_name, player_path(player_id))

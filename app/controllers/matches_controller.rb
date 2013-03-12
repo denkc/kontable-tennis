@@ -11,7 +11,7 @@ class MatchesController < ApplicationController
     player_one = Player.find_or_create_by_name(params[:one_name].downcase)
     player_two = Player.find_or_create_by_name(params[:two_name].downcase)
 
-    if player_one.valid? and player_two.valid?
+    if player_one.valid? and player_two.valid? and player_one.id != player_two.id
       params[:game_score_one].zip(params[:game_score_two]).each do |score_one, score_two|
         one = score_one.to_i
         two = score_two.to_i

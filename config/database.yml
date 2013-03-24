@@ -1,6 +1,8 @@
 development:
-  adapter: sqlite3
-  database: tmp/pivotpong_development.db
+  adapter: postgresql
+  database: kontable_tennis_development
+  host: localhost
+
 
 test: &test
   adapter: sqlite3

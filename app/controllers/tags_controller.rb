@@ -39,16 +39,21 @@ class TagsController < ApplicationController
     wins = 0
     total_games = 0
     total_elo = 0
+    total_weighted_elo = 0
     tag_elo_players.each do |player_id, tag_elo_player|
+      player_games = 0
       tag_elo_player.games.each do |game|
         wins += 1 if (game.one==tag_elo_player && game.result > 0.5) || (game.two==tag_elo_player && game.result < 0.5)
-        total_games += 1
+        player_games += 1
       end
       total_elo += tag_elo_player.rating
+      total_games += player_games
+      total_weighted_elo += player_games*tag_elo_player.rating
     end
 
     tag_data[:win_loss] = "#{wins}-#{total_games-wins}"
     tag_data[:average_elo] = total_elo/tag_elo_players.size
+    tag_data[:weighted_average_elo] = total_weighted_elo/total_games
     
     tag_data
   end

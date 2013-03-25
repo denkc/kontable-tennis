@@ -5,8 +5,9 @@
     %tr
       %th Rank
       %th Tag
-      %th Combined W-L (All-Time)
-      %th Average Elo Rating (All-Time)
+      %th Combined W-L
+      %th Average Elo Rating
+      %th Weighted Average Elo Rating
   - i = 1
   - @tags.each do |tag|
     - tag_data = @tags_data[tag]
@@ -15,4 +16,5 @@
       %td.name= link_to tag.name, tag
       %td.rating= tag_data[:win_loss]
       %td.rating= tag_data[:average_elo]
+      %td.rating= tag_data[:weighted_average_elo]
     - i += 1

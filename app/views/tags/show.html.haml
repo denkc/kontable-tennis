@@ -6,8 +6,8 @@
 
 .row
   %h3.span4
-    = "Average Elo Rating (All-Time): #{@tag_data[:average_elo]}"
+    = "Average/Weighted Elo: #{@tag_data[:average_elo]}/#{@tag_data[:weighted_average_elo]}"
   %h3.span4
-    = "Combined Record (All-Time): #{@tag_data[:win_loss]}"
+    = "Combined Record: #{@tag_data[:win_loss]}"
 
 = render(:partial => "shared/rankings", :locals => { :ratings => @ratings, :players_by_id => @players_by_id})

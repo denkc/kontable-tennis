@@ -4,19 +4,15 @@ class TagsController < ApplicationController
     @ratings = EloRatings.players
     @tags = Tag.all
     
-    @tags = @tags.sort_by{|tag|
-      ratings_for_tag = @ratings.select{|player_id, elo_player|
-        tag.players.exists?(player_id)
-      }.collect{|player_id, elo_player| elo_player.rating}
-
-      ratings_for_tag.sum/ratings_for_tag.size
-    }.reverse
-    
     @tags_data = {}
     @tags.each do |tag|
       params[:tag] = tag
       @tags_data[tag] = tag_data
     end
+    
+    @tags = @tags.sort_by{|tag|
+      @tags_data[tag][:weighted_average_elo]
+    }.reverse
   end
 
 

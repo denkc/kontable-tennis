@@ -20,7 +20,7 @@ module ApplicationHelper
   
   def format_tags(tags)
     tags = tags.map do |tag|
-      link_to(content_tag('span', tag.name, class: 'tag'), tag_path(tag), class: 'tag-link')
+      link_to(content_tag('span', tag.display_name, class: 'tag'), tag_path(tag), class: 'tag-link')
     end.join
 
     raw(tags)

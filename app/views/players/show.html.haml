@@ -17,18 +17,19 @@
 - content_for :title, "Player: #{@player.display_name}"
 
 .row
-  %h2.span4
+  %h2.span8
     = "#{@player.display_name}'s Match History #{" vs. #{@vs.display_name}" if @vs}"
 
 .row
-  %h2.span4
+  %h3.span4
     = "Elo Rating: #{@elo_player.rating}"
-  %h2.span4
+  %h3.span4
     = "Record: #{@num_wins} - #{@num_loses}"
 
 .row
-  #new-tag-panel.span2
+  %h3.span8
     = "Tags:"
+  #new-tag-panel.span8
     = format_tags @player.tags
     - if admin_signed_in?
       = form_for(@player.tags.build) do |f|

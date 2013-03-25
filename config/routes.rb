@@ -1,5 +1,7 @@
 Pong::Application.routes.draw do
 
+  resources :tags
+
   devise_for :admins, :controllers => { :omniauth_callbacks => "admins/sessions" }
 
   devise_scope :admin do

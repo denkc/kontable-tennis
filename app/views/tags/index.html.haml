@@ -1,0 +1,18 @@
+- content_for :title, "Tags"
+
+%table.rankings.table.table-striped
+  %thead
+    %tr
+      %th Rank
+      %th Tag
+      %th Combined W-L (All-Time)
+      %th Average Elo Rating (All-Time)
+  - i = 1
+  - @tags.each do |tag|
+    - tag_data = @tags_data[tag]
+    %tr.tag
+      %td.rank= "#{i}."
+      %td.name= link_to tag.name, tag
+      %td.rating= tag_data[:win_loss]
+      %td.rating= tag_data[:average]
+    - i += 1

@@ -4,6 +4,9 @@ class Player < ActiveRecord::Base
 
   has_many :winning_games, class_name: 'Game', foreign_key: 'winner_id'
   has_many :losing_games,  class_name: 'Game', foreign_key: 'loser_id'
+  
+  has_many :player_tags
+  has_many :tags, :through => :player_tags
 
   before_validation :downcase_name
 

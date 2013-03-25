@@ -27,6 +27,17 @@
     = "Record: #{@num_wins} - #{@num_loses}"
 
 .row
+  %h2.span4
+    = "Tags"
+  .span1
+    - @player.tags.each do |tag|
+      = link_to(tag.name, tag_path(tag))
+    = form_for(@player.tags.build) do |f|
+      = hidden_field_tag :player_id, @player.id
+      = text_field_tag :tag, "", placeholder: "Tag Name"
+      = submit_tag "Save Tag"
+
+.row
   #chart.span8
 
 .row

@@ -1,0 +1,16 @@
+.row
+  .tabbable.span8
+    %ul.nav.nav-tabs
+      %li.active= link_to "Active Rankings", "#30-days", {'data-toggle' => 'tab'}
+      %li= link_to "All Time Rankings", "#all-time", {'data-toggle' =>'tab'}
+
+.row
+  .tab-content.span8
+    .tab-pane#30-days.active
+      %table#recent-rankings.rankings.table.table-striped
+        - filtered_ratings = ratings.select{|player_id, elo_player| players_by_id[player_id].most_recent_match.occured_at >= 30.days.ago }
+        = render(:partial => "shared/rankings_table", :locals => { :ratings => filtered_ratings, :players_by_id => @players_by_id})
+  
+    .tab-pane#all-time
+      %table#all-time-rankings.rankings.table.table-striped
+        = render(:partial => "shared/rankings_table", :locals => { :ratings => ratings, :players_by_id => players_by_id})

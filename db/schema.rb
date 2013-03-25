@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120419155628) do
+ActiveRecord::Schema.define(:version => 20130325072052) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                :default => "", :null => false
@@ -52,6 +52,13 @@ ActiveRecord::Schema.define(:version => 20120419155628) do
     t.integer  "loser_score",  :default => 0
   end
 
+  create_table "player_tags", :force => true do |t|
+    t.integer "player_id", :null => false
+    t.integer "tag_id",    :null => false
+  end
+
+  add_index "player_tags", ["tag_id", "player_id"], :name => "index_player_tags_on_tag_id_and_player_id", :unique => true
+
   create_table "players", :force => true do |t|
     t.string   "name"
     t.datetime "created_at",                       :null => false
@@ -59,6 +66,12 @@ ActiveRecord::Schema.define(:version => 20120419155628) do
     t.integer  "rank"
     t.boolean  "active",         :default => true
     t.integer  "initial_rating"
+  end
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

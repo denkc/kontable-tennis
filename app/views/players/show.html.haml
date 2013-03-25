@@ -27,15 +27,15 @@
     = "Record: #{@num_wins} - #{@num_loses}"
 
 .row
-  %h2.span4
-    = "Tags"
-  .span1
+  #new-tag-panel.span2
+    = "Tags:"
     - @player.tags.each do |tag|
       = link_to(tag.name, tag_path(tag))
-    = form_for(@player.tags.build) do |f|
-      = hidden_field_tag :player_id, @player.id
-      = text_field_tag :tag, "", placeholder: "Tag Name"
-      = submit_tag "Save Tag"
+    - if admin_signed_in?
+      = form_for(@player.tags.build) do |f|
+        = hidden_field_tag :player_id, @player.id
+        = text_field_tag :tag, "", placeholder: "Tag Name", data: {provide: 'typeahead', source: Tag.names}
+        = submit_tag "Save"
 
 .row
   #chart.span8

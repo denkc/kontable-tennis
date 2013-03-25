@@ -5,9 +5,9 @@
     = "Tag #{@tag.name}'s Members"
 
 .row
-  %h2.span8
-    = "Average Elo Rating (Active): #{@ratings.select{|player_id, elo_player| @players_by_id[player_id].most_recent_match.occured_at >= 30.days.ago }.collect{|player_id, elo_player| elo_player.rating}.sum / @ratings.size}"
-  %h2.span8
-    = "Average Elo Rating (All-Time): #{@ratings.collect{|player_id, elo_player| elo_player.rating}.sum / @ratings.size}"
+  %h3.span4
+    = "Average Elo Rating (All-Time): #{@tag_data[:average_elo]}"
+  %h3.span4
+    = "Combined Record (All-Time): #{@tag_data[:win_loss]}"
 
 = render(:partial => "shared/rankings", :locals => { :ratings => @ratings, :players_by_id => @players_by_id})

@@ -12,7 +12,7 @@ module ApplicationHelper
 
   def format_game_scores(scores)
     spans = scores.map do |w, l, status|
-      content_tag 'span', "#{w}-#{l}", class: 'status'
+      content_tag 'span', "#{w}-#{l}", class: status
     end.join
 
     raw(spans)

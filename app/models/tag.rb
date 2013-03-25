@@ -10,14 +10,10 @@ class Tag < ActiveRecord::Base
   before_validation :downcase_name
   
   def self.names
-    Tag.pluck(:name).map(&:titleize)
+    Tag.pluck(:name)
   end
   
   def downcase_name
     self.name = self.name.downcase if self.name
-  end
-  
-  def display_name
-    name.titleize
   end
 end

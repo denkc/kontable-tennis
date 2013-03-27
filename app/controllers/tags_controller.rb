@@ -20,14 +20,13 @@ class TagsController < ApplicationController
     @match = Match.new
     @tag = Tag.find(params[:id])
     @players_by_id = Player.all.index_by{|p| p.id}
-    
-    @matches = []
 
     if params[:vs]
       @vs = Tag.find_by_name(params[:vs])
       same_players = @vs.players & @tag.players
       vs_different_players = @vs.players - @tag.players  # not symmetric difference
 
+      @matches = []
       @num_wins = 0
       @num_losses = 0
       @tag.players.each do |player|

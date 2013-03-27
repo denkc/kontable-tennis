@@ -20,10 +20,34 @@ class TagsController < ApplicationController
     @match = Match.new
     @tag = Tag.find(params[:id])
     @players_by_id = Player.all.index_by{|p| p.id}
-    @ratings = EloRatings.players_by_rating.select{|player_id, elo_player| @players_by_id[player_id].tags.exists?(@tag)}
     
-    params[:tag] = @tag
-    @tag_data = tag_data
+    @matches = []
+
+    if params[:vs]
+      @vs = Tag.find_by_name(params[:vs])
+      same_players = @vs.players & @tag.players
+      vs_different_players = @vs.players - @tag.players  # not symmetric difference
+
+      @num_wins = 0
+      @num_losses = 0
+      @tag.players.each do |player|
+        player_matches = player.matches.reject{|m|
+          ([m.winner_id, m.loser_id].reject{|player_id| player_id == player.id} & vs_different_players.collect(&:id)).blank?
+        }
+        @matches += player_matches
+
+        @num_wins += player_matches.select{|m| m.winner_id == player.id}.size
+        @num_losses += player_matches.select{|m| m.loser_id == player.id}.size
+      end
+    else
+      @ratings = EloRatings.players_by_rating.select{|player_id, elo_player| @players_by_id[player_id].tags.exists?(@tag)}
+      params[:tag] = @tag
+      @tag_data = tag_data
+
+      @num_wins = @tag_data[:wins]
+      @num_losses = @tag_data[:losses]
+    end
+    
   end
   
   
@@ -47,9 +71,10 @@ class TagsController < ApplicationController
       total_weighted_elo += player_games*tag_elo_player.rating
     end
 
-    tag_data[:win_loss] = "#{wins}-#{total_games-wins}"
-    tag_data[:average_elo] = total_elo/tag_elo_players.size
-    tag_data[:weighted_average_elo] = total_weighted_elo/total_games
+    tag_data[:wins] = wins
+    tag_data[:losses] = total_games-wins
+    tag_data[:average_elo] = total_elo/(tag_elo_players.size.nonzero? || 1)
+    tag_data[:weighted_average_elo] = total_weighted_elo/(total_games.nonzero? || 1)
     
     tag_data
   end

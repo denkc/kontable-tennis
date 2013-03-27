@@ -1,13 +1,25 @@
 - content_for :title, "Tag: #{@tag.name}"
 
 .row
-  %h2.span4
-    = "Tag \"#{@tag.name}\" Members"
+  %h2.span8
+    = "Tag #{@tag.name} #{" vs. #{@vs.name}" if @vs}"
 
 .row
+  - if @matches.blank?
+    %h3.span4
+      = "Average/Weighted Elo: #{@tag_data[:average_elo]}/#{@tag_data[:weighted_average_elo]}"
   %h3.span4
-    = "Average/Weighted Elo: #{@tag_data[:average_elo]}/#{@tag_data[:weighted_average_elo]}"
-  %h3.span4
-    = "Combined Record: #{@tag_data[:win_loss]}"
+    = "Combined Record: #{@num_wins}-#{@num_losses}"
 
-= render(:partial => "shared/rankings", :locals => { :ratings => @ratings, :players_by_id => @players_by_id})
+.row
+  .span8
+    = "Vs:"
+    = form_tag({}, {:method => :get}) do
+      = text_field_tag :vs, "", autocomplete: 'off', placeholder: "Tag Name", data: {provide: 'typeahead', source: Tag.names}
+      = submit_tag "Submit"
+
+- if @matches.blank?
+  = render(:partial => "shared/rankings", :locals => { :ratings => @ratings, :players_by_id => @players_by_id})
+- else
+  .row
+    = render(:partial => "shared/matches")

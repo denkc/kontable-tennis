@@ -23,7 +23,7 @@ class TagsController < ApplicationController
 
     if params[:vs]
       @vs = Tag.find_by_name(params[:vs])
-      vs_different_players = @vs.players - @tag.players  # not symmetric difference
+      vs_different_player_ids = (@vs.players - @tag.players).collect(&:id)  # not symmetric difference
 
       @matches = []
       @num_wins = 0
@@ -31,7 +31,7 @@ class TagsController < ApplicationController
       @tag.players.each do |player|
         player_matches = player.matches.reject{|m|
           other_player_id = [m.winner_id, m.loser_id].reject{|player_id| player_id == player.id}.pop
-          !vs_different_players.collect(&:id).include?(other_player_id)
+          !vs_different_player_ids.include?(other_player_id)
         }
         @matches += player_matches
 

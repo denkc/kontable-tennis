@@ -23,7 +23,6 @@ class TagsController < ApplicationController
 
     if params[:vs]
       @vs = Tag.find_by_name(params[:vs])
-      same_players = @vs.players & @tag.players
       vs_different_players = @vs.players - @tag.players  # not symmetric difference
 
       @matches = []
@@ -31,13 +30,18 @@ class TagsController < ApplicationController
       @num_losses = 0
       @tag.players.each do |player|
         player_matches = player.matches.reject{|m|
-          ([m.winner_id, m.loser_id].reject{|player_id| player_id == player.id} & vs_different_players.collect(&:id)).blank?
+          other_player_id = [m.winner_id, m.loser_id].reject{|player_id| player_id == player.id}.pop
+          !vs_different_players.collect(&:id).include?(other_player_id)
         }
         @matches += player_matches
 
         @num_wins += player_matches.select{|m| m.winner_id == player.id}.size
         @num_losses += player_matches.select{|m| m.loser_id == player.id}.size
       end
+      
+      @matches = @matches.sort_by{|match|
+        match.occured_at
+      }.reverse
     else
       @ratings = EloRatings.players_by_rating.select{|player_id, elo_player| @players_by_id[player_id].tags.exists?(@tag)}
       params[:tag] = @tag

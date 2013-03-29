@@ -91,4 +91,17 @@ class TagsController < ApplicationController
     flash.notice = 'Tag was successfully created.'
     redirect_to :back
   end
+  
+  def destroy
+    @player = Player.find(params[:player_id])
+    player_tag = @player.tags.find(params[:id])
+    
+    if player_tag
+      @player.tags.delete(player_tag)
+      flash.notice = 'Tag was successfully deleted.'
+    else
+      flash.alert = 'Tag not found!'
+    end
+    redirect_to :back
+  end
 end

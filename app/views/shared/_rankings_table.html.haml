@@ -12,7 +12,7 @@
   %tr.player
     %td.rank= "#{i}."
     %td.name= link_to(player.display_name, player_path(player_id))
-    %td.tags= format_tags player.tags
+    %td.tags= format_tags player.tags, player, false
     %td.rating
       - wins = elo_player.games.select{|g| (g.one==elo_player && g.result > 0.5) || (g.two==elo_player && g.result < 0.5)}.size
       = "#{wins}-#{elo_player.games_played-wins}"

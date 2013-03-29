@@ -30,7 +30,7 @@
   %h3.span8
     = "Tags:"
   #new-tag-panel.span8
-    = format_tags @player.tags
+    = format_tags @player.tags, @player, admin_signed_in?
     - if admin_signed_in?
       = form_for(@player.tags.build) do |f|
         = hidden_field_tag :player_id, @player.id

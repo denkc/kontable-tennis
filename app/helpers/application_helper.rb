@@ -18,9 +18,13 @@ module ApplicationHelper
     raw(spans)
   end
   
-  def format_tags(tags)
+  def format_tags(tags, player, admin)
     tags = tags.map do |tag|
-      link_to(content_tag('span', tag.name, class: 'tag'), tag_path(tag), class: 'tag-link')
+      output = link_to(content_tag('span', tag.name, class: 'tag'), tag_path(tag), class: 'tag-link')
+      if admin
+        output += button_to "x", tag_path(tag, {:player_id => player.id}), :confirm => "Are you sure?", :method => :delete, class: 'tag-delete'
+      end
+      output
     end.join
 
     raw(tags)

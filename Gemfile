@@ -7,7 +7,7 @@ gem 'thin'
 gem 'rails'
 gem 'haml-rails'
 gem 'jquery-rails'
-gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass'
 gem 'omniauth-openid'
 gem 'devise'
 
@@ -34,4 +34,5 @@ end
 
 group :production do
   gem 'pg'
+  gem 'therubyracer-heroku', :platform => :ruby
 end

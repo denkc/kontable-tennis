@@ -3,7 +3,7 @@
     %th Rank
     %th Name
     %th Tags
-    %th Win - Loss
+    %th Win - Loss (Streak)
     %th Elo Rating
 - i = 1
 - ratings.each do |player_id, elo_player|
@@ -14,7 +14,17 @@
     %td.name= link_to(player.display_name, player_path(player_id))
     %td.tags= format_tags player.tags, player, false
     %td.rating
-      - wins = elo_player.games.select{|g| (g.one==elo_player && g.result > 0.5) || (g.two==elo_player && g.result < 0.5)}.size
-      = "#{wins}-#{elo_player.games_played-wins}"
+      - wins = 0
+      - streak = 0
+      - last_game_won = nil
+      - streak_broken = false
+      - player.matches.each do |g|
+        - won = (g.winner_id==player_id)
+        - wins += 1 if won
+        - last_game_won = won if last_game_won.nil?
+        - streak += 1 if won == last_game_won and not streak_broken
+        - streak_broken = true if won != last_game_won
+      - streak_text = last_game_won ? 'W' : 'L'
+      = "#{wins}-#{elo_player.games_played-wins} (#{streak_text}#{streak})"
     %td.rating= elo_player.rating
   - i += 1

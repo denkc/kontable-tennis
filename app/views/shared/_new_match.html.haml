@@ -9,9 +9,9 @@
     - Match::MATCH_SIZE.times do |i|
       .row.game
         .span1
-          = text_field_tag "game_score_one[]", '', autocomplete: 'off', placeholder: '0', maxlength: 2, class: "score one span1", id: nil
+          = number_field_tag "game_score_one[]", '', autocomplete: 'off', placeholder: '0', in: 0...100, class: "score one span1", id: nil
         .span1
-          = text_field_tag "game_score_two[]", '', autocomplete: 'off', placeholder: "0", maxlength: 2, class: "score two span1", id: nil
+          = number_field_tag "game_score_two[]", '', autocomplete: 'off', placeholder: "0", in: 0...100, class: "score two span1", id: nil
     .row
       .span1
         %a#add-game.btn.btn-info.btn-mini{href:'#'}

@@ -1,7 +1,8 @@
 class TagsController < ApplicationController
   def index
     @match = Match.new
-    @ratings = EloRatings.players
+    @players_by_id = Player.all.index_by{|p| p.id}
+    @ratings = EloRatings.players.reject{|player_id, _| @players_by_id[player_id].most_recent_match.occured_at < 30.days.ago}
     @tags = Tag.all
     
     @tags_data = {}

@@ -59,6 +59,7 @@ class PlayersController < ApplicationController
   
   def vs_table
     distribution
+    @match = nil
     @vs_table = Array.new(@ratings.size) { Array.new(@ratings.size) { [0, 0] } }
     @rank_to_player = {}
     

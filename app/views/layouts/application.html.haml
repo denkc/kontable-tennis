@@ -31,7 +31,11 @@
         .span10
           = render 'shared/flash_messages'
       .row
-        .span8
-          = yield
-        = render(:partial => "shared/new_match")
+        - if @match
+          .span8
+            = yield
+          = render(:partial => "shared/new_match") if @match
+        - else
+          .span10
+            = yield
 

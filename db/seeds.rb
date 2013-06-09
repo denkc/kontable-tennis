@@ -14,7 +14,14 @@
              Player.create(name: "Dave"),
              Player.create(name: "Eve"),
              Player.create(name: "Mallory"),
-             Player.create(name: "Peggy")
+             Player.create(name: "Oscar"),
+             Player.create(name: "Peggy"),
+             Player.create(name: "Trent"),
+             Player.create(name: "Walter"),
+             Player.create(name: "Chuck"),
+             Player.create(name: "Craig"),
+             Player.create(name: "Frank"),
+             Player.create(name: "Victor")
            ]
 
 def rand_game(match, player_one, player_two)

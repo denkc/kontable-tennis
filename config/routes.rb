@@ -13,6 +13,7 @@ Pong::Application.routes.draw do
   resources :players
 
   match '/distribution' => 'players#distribution', :as => 'distribution'
+  match '/vs_table' => 'players#vs_table', :as => 'vs_table'
 
   root to: 'players#rankings'
 end

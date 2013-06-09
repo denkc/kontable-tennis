@@ -1,0 +1,21 @@
+- content_for :title, "Versus Table"
+
+.row
+  %h2.span8
+    Versus Table for Active Players
+
+.row
+  %table.vs_table.table.table-striped.span8
+    %tr
+      %td
+      - @vs_table.each_with_index do |vs_record, player_rank|
+        - player = @rank_to_player[player_rank]
+        %th.name= link_to(player.display_name, player_path(player.id))
+  
+    - @vs_table.each_with_index do |vs_record, player_rank|
+      - player = @rank_to_player[player_rank]
+      %tr.player
+        %th.name= link_to(player.display_name, player_path(player.id))
+        - vs_record.each do |record|
+          %td.record= record.join("-")
+  

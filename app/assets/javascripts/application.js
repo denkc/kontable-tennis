@@ -1,5 +1,7 @@
 //= require jquery
 //= require twitter/bootstrap
+//= require jquery.dataTables.min
+//= require FixedColumns.min
 //= require_self
 
 $(function(){

@@ -60,7 +60,7 @@ class PlayersController < ApplicationController
   def vs_table
     distribution
     @match = nil
-    @vs_table = Array.new(@ratings.size) { Array.new(@ratings.size) { [0, 0] } }
+    @vs_table = Array.new(@ratings.size) { Array.new(@ratings.size) { [] } }
     @rank_to_player = {}
     
     # it's probably better to iterate over all of the matches than to hit each match twice this way

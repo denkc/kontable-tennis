@@ -1,11 +1,11 @@
 - content_for :title, "Versus Table"
 
-.row
-  %h2.span8
+.row.span6
+  %h2.span6
     Versus Table for Active Players
 
 .row
-  %table#vs_table.table.table-striped.span8
+  %table#vs_table.table.table-striped.span10
     %thead
       %tr
         %td
@@ -26,8 +26,9 @@
       "aaSorting": [],
       "bSort": false,
       "bPaginate": false,
-      "sScrollY": "400px",
       "sScrollX": "100%",
+      // totally eyeballed this. prob a better way =P and prob a css way too.
+      "sScrollY": $(window).height()-220 + 'px', 
       "sDom": 'ft',
     });
     new FixedColumns(oTable, {"iLeftWidth": 100});

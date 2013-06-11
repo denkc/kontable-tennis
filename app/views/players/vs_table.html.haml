@@ -18,7 +18,10 @@
       %tr.player
         %th.name= link_to(player.display_name, player_path(player.id))
         - vs_record.each do |record|
-          %td.record= record.join("-")
+          - status = nil
+          - if not record.empty? and record[0] != record[1]
+            - status = record[0] > record[1] ? :win : :loss
+          = content_tag 'td', record.join("-"), class: status
 
 :javascript
   $(document).ready( function () {

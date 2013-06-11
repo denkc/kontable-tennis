@@ -23,6 +23,10 @@ table#vs_table
   td, th
     vertical-align: middle
     text-align: center
+  td.win
+    color: #070
+  td.loss
+    color: #500
 
 #matches
   td
@@ -64,7 +68,6 @@ a.tag-link
     border-radius: 3px
     float: left
 
-/* Hack for datatables to work right with firefox */
 table.dataTable
-  max-width: none
-  margin-bottom: 0px
+  max-width: none  /* Hack for datatables to work right with firefox */
+  margin-bottom: 0px  /* remove bottom margin to prevent overscroll on non-fixed columns */
